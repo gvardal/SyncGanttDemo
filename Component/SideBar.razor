@@ -1,9 +1,22 @@
-﻿
-<SfSidebar Width="250px" @bind-IsOpen="SidebarToggle" Animate="true" Type="SidebarType.Push" >
+﻿@using Syncfusion.Blazor.Lists
+@using Syncfusion.Blazor.Buttons
+
+<SfSidebar Width="220px" @bind-IsOpen="SidebarToggle" Animate="true" Type="SidebarType.Push">
     <ChildContent>
-        <div style="text-align: center;" class="text-content"> Sidebar </div>
+        <div style="text-align: center;" class="text-content userinfo">
+            <img src="img/man.png" class="e-avatar e-avatar-xlarge image" />
+            <div class="text" style="width: 100%;font-size: 20px;text-align: center;">Giray VARDAL</div>
+        </div>
+        <hr />
+        <div class="main-menu">
+            <SfTreeView TValue="MailItem">
+                <TreeViewFieldsSettings TValue="MailItem" Id="Id" DataSource="@MyFolder" Text="FolderName"
+                                        ParentID="ParentId" HasChildren="HasSubFolders" Expanded="Expanded"/>
+            </SfTreeView>
+        </div>
     </ChildContent>
 </SfSidebar>
+
 
 @code {
     [Parameter]
@@ -11,4 +24,55 @@
 
     [Parameter]
     public string Target { get; set; } = string.Empty;
+
+    public class MailItem
+    {
+        public string Id { get; set; }
+        public string ParentId { get; set; }
+        public string FolderName { get; set; }
+        public bool Expanded { get; set; }
+        public bool HasSubFolders { get; set; }
+        public string IconCss { get; set; }
+    }
+
+    List<MailItem> MyFolder = new List<MailItem>();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        MyFolder.Add(new MailItem
+            {
+                Id = "1",
+                FolderName = "Inbox",
+                HasSubFolders = false,
+            });
+        MyFolder.Add(new MailItem
+            {
+                Id = "2",
+                FolderName = "Categories",
+                Expanded = false,
+                HasSubFolders = true,
+                IconCss = "e-icons e-menu"
+            });
+        MyFolder.Add(new MailItem
+            {
+                Id = "3",
+                ParentId = "2",
+                FolderName = "Primary"
+            });
+        MyFolder.Add(new MailItem
+            {
+                Id = "4",
+                ParentId = "2",
+                FolderName = "Social"
+            });
+        MyFolder.Add(new MailItem
+            {
+                Id = "5",
+                ParentId = "2",
+                FolderName = "Promotions"
+            });
+
+        
+    }
+
 }
