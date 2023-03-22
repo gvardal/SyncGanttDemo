@@ -1,0 +1,14 @@
+﻿
+<SfSidebar Width="250px" @bind-IsOpen="SidebarToggle" Animate="true" Type="SidebarType.Push" >
+    <ChildContent>
+        <div style="text-align: center;" class="text-content"> Sidebar </div>
+    </ChildContent>
+</SfSidebar>
+
+@code {
+    [Parameter]
+    public bool SidebarToggle { get; set; }
+
+    [Parameter]
+    public string Target { get; set; } = string.Empty;
+}

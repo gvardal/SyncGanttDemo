@@ -3,17 +3,24 @@
 <PageTitle>SyncGanttDemo</PageTitle>
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
+    <SideBar SidebarToggle="@SidebarToggle" />
     <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
+        <SfAppBar ColorMode="AppBarColor.Primary">
+            <SfButton CssClass="e-inherit" IconCss="e-icons e-menu" OnClick="@Toggle"></SfButton>
+            <AppBarSpacer></AppBarSpacer>
+        </SfAppBar>
+        <article class="content px-2">
             @Body
         </article>
     </main>
 </div>
+
+
+@code {
+    public bool SidebarToggle { get; set; } = false;
+
+    public void Toggle()
+    {
+        SidebarToggle = !SidebarToggle;
+    }
+}
