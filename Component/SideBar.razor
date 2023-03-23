@@ -11,7 +11,7 @@
         <div class="main-menu">
             <SfTreeView TValue="MailItem">
                 <TreeViewFieldsSettings TValue="MailItem" Id="Id" DataSource="@MyFolder" Text="FolderName"
-                                        ParentID="ParentId" HasChildren="HasSubFolders" Expanded="Expanded"/>
+                                        NavigateUrl="Url" ParentID="ParentId" HasChildren="HasSubFolders" Expanded="Expanded" />
             </SfTreeView>
         </div>
     </ChildContent>
@@ -33,6 +33,7 @@
         public bool Expanded { get; set; }
         public bool HasSubFolders { get; set; }
         public string IconCss { get; set; }
+        public string Url { get; set; }
     }
 
     List<MailItem> MyFolder = new List<MailItem>();
@@ -48,22 +49,25 @@
         MyFolder.Add(new MailItem
             {
                 Id = "2",
-                FolderName = "Categories",
+                FolderName = "Projects",
                 Expanded = false,
                 HasSubFolders = true,
-                IconCss = "e-icons e-menu"
+                IconCss = "e-icons e-menu",
+                Url = "/projectmain"
             });
         MyFolder.Add(new MailItem
             {
                 Id = "3",
                 ParentId = "2",
-                FolderName = "Primary"
+                FolderName = "Project List",
+                Url = "/projectlist"
             });
         MyFolder.Add(new MailItem
             {
                 Id = "4",
                 ParentId = "2",
-                FolderName = "Social"
+                FolderName = "Project Gantt",
+                Url = "/projectgantt"
             });
         MyFolder.Add(new MailItem
             {
@@ -72,7 +76,7 @@
                 FolderName = "Promotions"
             });
 
-        
+
     }
 
 }

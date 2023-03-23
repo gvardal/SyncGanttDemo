@@ -1,0 +1,112 @@
+﻿@page "/projectlist"
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Cards
+@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.ProgressBar
+
+<PageTitle>Project List</PageTitle>
+
+<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+    <SfBreadcrumb>
+        <BreadcrumbItems>
+            <BreadcrumbItem IconCss="e-icons e-home" Url="/" />
+            <BreadcrumbItem Text="Projects" Url="/projectmain" />
+            <BreadcrumbItem Text="Project List" />
+        </BreadcrumbItems>
+        <BreadcrumbTemplates>
+            <SeparatorTemplate>
+                <span class="e-icons e-arrow"></span>
+            </SeparatorTemplate>
+        </BreadcrumbTemplates>
+    </SfBreadcrumb>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-6 py-4">
+    <SfCard>
+        <CardHeader Title="Active Project List" SubTitle="" />
+        <CardContent>
+            <SfGrid DataSource="@Orders" AllowPaging="true">
+                <GridPageSettings PageSize="5"></GridPageSettings>
+                <GridColumns>
+                    <GridColumn Field=@nameof(Order.ProjectId) HeaderText="Project ID" TextAlign="TextAlign.Left" MinWidth="150"></GridColumn>
+                    <GridColumn Field=@nameof(Order.ProjectName) HeaderText="Project Name" TextAlign="TextAlign.Left"></GridColumn>
+                    <GridColumn Field=@nameof(Order.ProjectProgress) HeaderText="Status" TextAlign="TextAlign.Center" HeaderTextAlign="TextAlign.Center">
+                        <Template>
+                            @{
+                                var data = context as Order;
+                                <SfProgressBar Type="ProgressType.Linear" Height="40" Width="90%" CornerRadius="CornerType.Round"
+                                           TrackThickness="20" ProgressThickness="20" Value="@data!.ProjectProgress" ShowProgressValue="true" Minimum="0" Maximum="100">
+                                    <ProgressBarAnimation Enable="true" Duration="2000" Delay="0"></ProgressBarAnimation>
+                                </SfProgressBar>
+                            }
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field=@nameof(Order.StartDate) HeaderText="Start Date" TextAlign="TextAlign.Left" Format="dd.MM.yyyy"></GridColumn>
+                    <GridColumn Field=@nameof(Order.DueDate) HeaderText="Due Date" TextAlign="TextAlign.Left" Format="dd.MM.yyyy"></GridColumn>
+                </GridColumns>
+            </SfGrid>
+        </CardContent>
+    </SfCard>
+</div>
+
+
+
+<style>
+    .e-arrow:before {
+        content: '\e763';
+        font-weight: 800;
+        font-size: 12px;
+        justify-content: center;
+    }
+
+    .e-breadcrumb .e-breadcrumb-item a.e-breadcrumb-text {
+        font-size: 20px;
+        text-decoration: none;
+    }
+
+    .e-breadcrumb .e-breadcrumb-item .e-breadcrumb-icon.e-home::before {
+        vertical-align: sub;
+        font-size: 20px;
+    }
+
+    .e-breadcrumb .e-breadcrumb-item[data-active-item] .e-breadcrumb-text {
+        color: #6c757d;
+        font-weight: 400;
+        font-size: 20px;
+    }
+</style>
+
+
+
+@code {
+    public List<Order> Orders { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        Orders.Add(new Order
+            {
+                ProjectId = Guid.NewGuid().ToString(),
+                ProjectName = "Gaz Beton Otoklav-1",
+                ProjectProgress = 38,
+                StartDate = Convert.ToDateTime("01.01.2023"),
+                DueDate = Convert.ToDateTime("11.01.2023")
+            });
+        Orders.Add(new Order { ProjectId = Guid.NewGuid().ToString(), ProjectName = "Gaz Beton Otoklav-2", ProjectProgress = 65 });
+        Orders.Add(new Order { ProjectId = Guid.NewGuid().ToString(), ProjectName = "Gaz Beton Otoklav-3", ProjectProgress = 32 });
+        Orders.Add(new Order { ProjectId = Guid.NewGuid().ToString(), ProjectName = "Gaz Beton Otoklav-4", ProjectProgress = 47 });
+        Orders.Add(new Order { ProjectId = Guid.NewGuid().ToString(), ProjectName = "Gaz Beton Otoklav-5", ProjectProgress = 85 });
+        Orders.Add(new Order { ProjectId = Guid.NewGuid().ToString(), ProjectName = "Gaz Beton Otoklav-6", ProjectProgress = 65 });
+        Orders.Add(new Order { ProjectId = Guid.NewGuid().ToString(), ProjectName = "Gaz Beton Otoklav-7", ProjectProgress = 54 });
+        Orders.Add(new Order { ProjectId = Guid.NewGuid().ToString(), ProjectName = "Gaz Beton Otoklav-8", ProjectProgress = 11 });
+        base.OnInitialized();
+    }
+
+    public class Order
+    {
+        public string ProjectId { get; set; } = string.Empty;
+        public string ProjectName { get; set; } = string.Empty;
+        public int ProjectProgress { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime DueDate { get; set; }
+    }
+}

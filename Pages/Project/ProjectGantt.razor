@@ -1,0 +1,97 @@
+﻿@page "/projectgantt"
+@using Syncfusion.Blazor.Gantt
+
+<PageTitle>Project Gantt</PageTitle>
+
+<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+    <SfBreadcrumb>
+        <BreadcrumbItems>
+            <BreadcrumbItem IconCss="e-icons e-home" Url="/" />
+            <BreadcrumbItem Text="Projects" Url="/projectmain" />
+            <BreadcrumbItem Text="Project Gantt" />
+        </BreadcrumbItems>
+        <BreadcrumbTemplates>
+            <SeparatorTemplate>
+                <span class="e-icons e-arrow"></span>
+            </SeparatorTemplate>
+        </BreadcrumbTemplates>
+    </SfBreadcrumb>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 py-4 bg-info" >
+    <div class="row">
+    <SfGantt DataSource="@TaskCollection" Height="450px" HighlightWeekends="true" TreeColumnIndex="1">
+        <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
+                         Dependency="Predecessor" ParentID="ParentId"></GanttTaskFields>
+        <GanttColumns>
+            <GanttColumn Field="TaskId"></GanttColumn>
+            <GanttColumn Field="TaskName" Width="250"></GanttColumn>
+            <GanttColumn Field="StartDate"></GanttColumn>
+            <GanttColumn Field="EndDate"></GanttColumn>
+            <GanttColumn Field="Duration"></GanttColumn>
+            <GanttColumn Field="Progress"></GanttColumn>
+            <GanttColumn Field="Predecessor"></GanttColumn>
+        </GanttColumns>
+        
+        <GanttSplitterSettings Position="30%"> </GanttSplitterSettings>
+    </SfGantt>
+    </div>
+</div>
+
+<style>
+    .e-arrow:before {
+        content: '\e763';
+        font-weight: 800;
+        font-size: 12px;
+        justify-content: center;
+    }
+
+    .e-breadcrumb .e-breadcrumb-item a.e-breadcrumb-text {
+        font-size: 20px;
+        text-decoration: none;
+    }
+
+    .e-breadcrumb .e-breadcrumb-item .e-breadcrumb-icon.e-home::before {
+        vertical-align: sub;
+        font-size: 20px;
+    }
+
+    .e-breadcrumb .e-breadcrumb-item[data-active-item] .e-breadcrumb-text {
+        color: #6c757d;
+        font-weight: 400;
+        font-size: 20px;
+    }
+</style>
+
+@code {
+    private List<TaskData> TaskCollection { get; set; } = new();
+    protected override void OnInitialized()
+    {
+        List<TaskData> Tasks = new List<TaskData>() {
+            new TaskData() { TaskId = 1, TaskName = "Project initiation", StartDate = new DateTime(2022, 04, 05), EndDate = new DateTime(2022, 04, 21), },
+            new TaskData() { TaskId = 2, TaskName = "Identify Site location", StartDate = new DateTime(2022, 04, 05), Duration = "4", Progress = 50, ParentId = 1 },
+            new TaskData() { TaskId = 3, TaskName = "Perform soil test", StartDate = new DateTime(2022, 04, 05), Duration = "4", Progress = 50, ParentId = 1 }
+        };
+    }
+
+    public class TaskData
+    {
+        public int TaskId { get; set; }
+        public string TaskName { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Duration { get; set; }
+        public int Progress { get; set; }
+        public int? ParentId { get; set; }
+    }
+
+    //public static List<TaskData> GetTaskCollection()
+    //{
+    //    List<TaskData> Tasks = new List<TaskData>() {
+    //        new TaskData() { TaskId = 1, TaskName = "Project initiation", StartDate = new DateTime(2022, 04, 05), EndDate = new DateTime(2022, 04, 21), },
+    //        new TaskData() { TaskId = 2, TaskName = "Identify Site location", StartDate = new DateTime(2022, 04, 05), Duration = "4", Progress = 50, ParentId = 1 },
+    //        new TaskData() { TaskId = 3, TaskName = "Perform soil test", StartDate = new DateTime(2022, 04, 05), Duration = "4", Progress = 50, ParentId = 1 }
+    //    };
+    //    return Tasks;
+    //}
+}
