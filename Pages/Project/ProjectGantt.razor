@@ -18,8 +18,8 @@
     </SfBreadcrumb>
 </div>
 
-<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 py-4 bg-info" >
-    <div class="row">
+<div class="col-xs-12 col-sm-12 col-md-10">
+    <div class="row my-4">
     <SfGantt DataSource="@TaskCollection" Height="450px" HighlightWeekends="true" TreeColumnIndex="1">
         <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
                          Dependency="Predecessor" ParentID="ParentId"></GanttTaskFields>
